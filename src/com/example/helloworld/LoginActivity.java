@@ -17,8 +17,18 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
+		
 		fragInputCellUserName = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_user_name);
 		fragInputCellUserPassword = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_user_password);
+		
+		
+		findViewById(R.id.btn_register).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				goRegister();
+			}
+		});
 		
 		findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
 			
@@ -29,13 +39,17 @@ public class LoginActivity extends Activity {
 			}
 		});
 		
-		findViewById(R.id.btn_register).setOnClickListener(new View.OnClickListener() {
+		findViewById(R.id.btn_forget_password).setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				goRegister();
+				goRecoverPassword();
+				
 			}
 		});
+		
+
+
 	}
 	
 	@Override
@@ -45,6 +59,7 @@ public class LoginActivity extends Activity {
 		fragInputCellUserName.setHintText("请输入用户名");
 		fragInputCellUserPassword.setLabelText("密码");
 		fragInputCellUserPassword.setHintText("请输入密码");
+		fragInputCellUserPassword.setIsPassword(true);
 		
 	}
 	
@@ -54,7 +69,14 @@ public class LoginActivity extends Activity {
 	}
 	
 	void goLogin(){
-		setContentView(R.layout.activity_welcome);
+		Intent itnt = new Intent(this,HelloWorldActivity.class);
+		startActivity(itnt);
 		
 	}
+	
+	void goRecoverPassword(){
+		Intent itnt = new Intent(this, PasswordRecoverActivity.class);
+		startActivity(itnt);
+	}
+	
 }

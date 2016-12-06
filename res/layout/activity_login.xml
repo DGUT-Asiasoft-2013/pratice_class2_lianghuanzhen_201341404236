@@ -4,6 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="16dp"
+        android:text="LOGIN TO HELLO"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -29,24 +38,35 @@
                 class="com.example.helloworld.fragments.inputcells.SimpleTextInputCellFragment"
                 tools:layout="@layout/fragment_inputcell_simpletext" />
 
+            <TextView
+                android:id="@+id/btn_forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:padding="5dp"
+                android:text="忘记密码？"
+                android:textColor="#00f"
+                android:clickable="true" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center" >
+                android:layout_gravity="center"
+                android:orientation="horizontal" >
 
                 <Button
                     android:id="@+id/btn_register"
                     android:layout_width="130dp"
+                    android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="GO REGISTER" />
 
                 <Button
                     android:id="@+id/btn_login"
                     android:layout_width="130dp"
+                    android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="GO LOGIN" />
-                
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
