@@ -27,13 +27,13 @@ public class PasswordRecoverStep2Fragment extends Fragment{
 
 		}
 
+
 		return view;
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-
 		fragVerify.setLabelText("验证码");{
 			fragVerify.setHintText("请输入验证码");
 		}
@@ -43,6 +43,7 @@ public class PasswordRecoverStep2Fragment extends Fragment{
 		fragPasswordRepeat.setLabelText("重复新密码");{
 			fragPasswordRepeat.setHintText("请重复输入新密码");
 		}
+
 	}
 
 
