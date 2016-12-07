@@ -38,8 +38,8 @@ public class PasswordRecoverStep1Fragment extends Fragment {
 	public void onResume() {
 		super.onResume();
 		
-		fragEmail.setLabelText("×¢²áÓÊÏä");
-		fragEmail.setHintText("ÇëÊäÈë×¢²áÓÊÏä");
+		fragEmail.setLabelText("æ³¨å†Œé‚®ç®±");
+		fragEmail.setHintText("è¯·è¾“å…¥æ³¨å†Œé‚®ç®±");
 	}
 	
 	public static interface OnGoNextListener{

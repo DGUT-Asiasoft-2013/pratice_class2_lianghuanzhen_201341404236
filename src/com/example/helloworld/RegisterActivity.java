@@ -30,22 +30,22 @@ public class RegisterActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 
-		fragInputCellAccount.setLabelText("ÓÃ»§Ãû");{
-			fragInputCellAccount.setHintText("ÇëÊäÈëÓÃ»§Ãû");
+		fragInputCellAccount.setLabelText("ç”¨æˆ·å");{
+			fragInputCellAccount.setHintText("è¯·è¾“å…¥ç”¨æˆ·å");
 		}
 		
-		fragInputCellPassword.setLabelText("ÃÜÂë");{
-			fragInputCellPassword.setHintText("ÇëÊäÈëÃÜÂë");
+		fragInputCellPassword.setLabelText("å¯†ç ");{
+			fragInputCellPassword.setHintText("è¯·è¾“å…¥å¯†ç ");
 			fragInputCellPassword.setIsPassword(true);
 		}
 		
-		fragInputCellPasswordRepeat.setLabelText("ÖØ¸´ÃÜÂë");{
-			fragInputCellPasswordRepeat.setHintText("ÇëÖØ¸´ÊäÈëÃÜÂë");
+		fragInputCellPasswordRepeat.setLabelText("é‡å¤å¯†ç ");{
+			fragInputCellPasswordRepeat.setHintText("è¯·é‡å¤è¾“å…¥å¯†ç ");
 			fragInputCellPasswordRepeat.setIsPassword(true);
 		}
 		
-		fragInputCellEmailAddress.setLabelText("µç×ÓÓÊÏä");{
-			fragInputCellEmailAddress.setHintText("ÇëÊäÈëµç×ÓÓÊÏä");
+		fragInputCellEmailAddress.setLabelText("ç”µå­é‚®ç®±");{
+			fragInputCellEmailAddress.setHintText("è¯·è¾“å…¥ç”µå­é‚®ç®±");
 		}
 		
 	}

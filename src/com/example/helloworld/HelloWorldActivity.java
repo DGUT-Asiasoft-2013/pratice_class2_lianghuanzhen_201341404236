@@ -17,37 +17,7 @@ public class HelloWorldActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_welcome);
-		/*	
-		forgetPView = (TextView) findViewById(R.id.btn_forget_password);
-		forgetPView.setClickable(true);
-		forgetPView.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				//调到拨号界面
-
-
-			}
-		});
-		 */
-		/*
-		 * textView.setOnClickListener(new OnClickListener() {
-
-@Override
-
-public void onClick(View arg0) {
-
-//调到拨号界面
-
-Uri uri = Uri.parse("tel:18764563501");   
-
-Intent intent = new Intent(Intent.ACTION_DIAL, uri);     
-
-startActivity(intent);
-
-}
-
-});*/
 	}
 
 

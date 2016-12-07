@@ -44,7 +44,9 @@ public class MainTabbarFragment extends Fragment{
 	}
 	
 	void onTabClicked(View tab){
-		
+		for(View otherTab:tabs){
+			otherTab.setSelected(otherTab == tab);
+		}
 	}
 	
 	

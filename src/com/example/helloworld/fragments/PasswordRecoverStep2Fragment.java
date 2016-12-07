@@ -34,14 +34,14 @@ public class PasswordRecoverStep2Fragment extends Fragment{
 	@Override
 	public void onResume() {
 		super.onResume();
-		fragVerify.setLabelText("ÑéÖ¤Âë");{
-			fragVerify.setHintText("ÇëÊäÈëÑéÖ¤Âë");
+		fragVerify.setLabelText("éªŒè¯ç ");{
+			fragVerify.setHintText("è¯·è¾“å…¥éªŒè¯ç ");
 		}
-		fragPassword.setLabelText("ĞÂÃÜÂë");{
-			fragPassword.setHintText("ÇëÊäÈëĞÂÃÜÂë");
+		fragPassword.setLabelText("æ–°å¯†ç ");{
+			fragPassword.setHintText("è¯·è¾“å…¥æ–°å¯†ç ");
 		}
-		fragPasswordRepeat.setLabelText("ÖØ¸´ĞÂÃÜÂë");{
-			fragPasswordRepeat.setHintText("ÇëÖØ¸´ÊäÈëĞÂÃÜÂë");
+		fragPasswordRepeat.setLabelText("é‡å¤æ–°å¯†ç ");{
+			fragPasswordRepeat.setHintText("è¯·é‡å¤è¾“å…¥æ–°å¯†ç ");
 		}
 
 	}

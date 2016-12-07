@@ -8,75 +8,76 @@ import android.os.Bundle;
 import android.view.View;
 
 public class LoginActivity extends Activity {
-	
+
 	SimpleTextInputCellFragment fragInputCellUserName ;
 	SimpleTextInputCellFragment fragInputCellUserPassword;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
-		
+
+
 		fragInputCellUserName = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_user_name);
 		fragInputCellUserPassword = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_user_password);
-		
-		
+
+
 		findViewById(R.id.btn_register).setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				goRegister();
 			}
 		});
-		
+
 		findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				goLogin();
-				
+
 			}
 		});
-		
+
 		findViewById(R.id.btn_forget_password).setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				goRecoverPassword();
-				
+
 			}
 		});
-		
+
 
 
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-		fragInputCellUserName.setLabelText("ÓÃ»§Ãû");
-		fragInputCellUserName.setHintText("ÇëÊäÈëÓÃ»§Ãû");
-		fragInputCellUserPassword.setLabelText("ÃÜÂë");
-		fragInputCellUserPassword.setHintText("ÇëÊäÈëÃÜÂë");
-		fragInputCellUserPassword.setIsPassword(true);
-		
+		fragInputCellUserName.setLabelText("ç”¨æˆ·å");{
+			fragInputCellUserName.setHintText("è¯·è¾“å…¥ç”¨æˆ·å");
+		}
+		fragInputCellUserPassword.setLabelText("å¯†ç ");{
+			fragInputCellUserPassword.setHintText("è¯·è¾“å…¥å¯†ç ");
+			fragInputCellUserPassword.setIsPassword(true);
+		}
 	}
-	
+
 	void goRegister(){
 		Intent itnt = new Intent(this,RegisterActivity.class);
 		startActivity(itnt);
 	}
-	
+
 	void goLogin(){
 		Intent itnt = new Intent(this,HelloWorldActivity.class);
 		startActivity(itnt);
-		
+
 	}
-	
+
 	void goRecoverPassword(){
 		Intent itnt = new Intent(this, PasswordRecoverActivity.class);
 		startActivity(itnt);
 	}
-	
+
 }
