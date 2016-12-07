@@ -12,6 +12,7 @@ import com.example.helloworld.fragments.widgets.MainTabbarFragment.OnTabSelected
 import android.R.integer;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -25,7 +26,7 @@ public class HelloWorldActivity extends Activity {
 	NoteListFragment fragNoteList = new NoteListFragment();
 	SearchPageFragment fragSearchPage = new SearchPageFragment();
 	MeProfileFragment fragMeProfile = new MeProfileFragment();
-
+	
 
 	MainTabbarFragment tabbar;
 
@@ -44,13 +45,23 @@ public class HelloWorldActivity extends Activity {
 
 			}
 		});
+		
+		findViewById(R.id.btn_new).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				onShareClicked();
+				
+			}
+		});
+
 
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		tabbar.setSelectedItem(0);
 	}
 	
 	//------------------------
@@ -76,16 +87,16 @@ public class HelloWorldActivity extends Activity {
 		getFragmentManager()
 		.beginTransaction()
 		.replace(R.id.content, newFrag) //把newfrag传进content
-		.setCustomAnimations(
-				R.animator.slide_in_right,
-				R.animator.slide_out_left, 
-				R.animator.slide_in_left, 
-				R.animator.slide_out_right)
-		.addToBackStack(null)
 		.commit();
 		
 	}
 
+	void onShareClicked(){
+		Intent itnt = new Intent(this,ShareActivity.class);	
+		startActivity(itnt);
+		
+		overridePendingTransition(R.anim.add_in_button,R.anim.add_out_button);
+	}
 
 
 }

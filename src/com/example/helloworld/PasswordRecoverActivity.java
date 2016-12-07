@@ -25,6 +25,7 @@ public class PasswordRecoverActivity extends Activity{
 			@Override
 			public void onGoNext() {
 				goStep2();
+				
 			}
 		}); 
 		

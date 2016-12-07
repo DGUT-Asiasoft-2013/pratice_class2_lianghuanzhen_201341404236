@@ -1,8 +1,11 @@
 package com.example.helloworld.fragments.widgets;
 
+import com.example.helloworld.FeedsContentActivity;
 import com.example.helloworld.R;
+import com.example.helloworld.ShareActivity;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +15,6 @@ public class MainTabbarFragment extends Fragment{
 	
 	View btnNew,tabFeeds,tabNotes,tabSearch,tabMe;
 	View[] tabs;
-	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class MainTabbarFragment extends Fragment{
 				}
 			});
 		}
+
 		
 		return view;
 	}
@@ -86,5 +89,6 @@ public class MainTabbarFragment extends Fragment{
 		}
 		
 	}
-	
+	//------------
+
 }
