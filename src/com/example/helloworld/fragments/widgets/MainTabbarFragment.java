@@ -1,4 +1,4 @@
-package com.example.helloworld.fragments;
+package com.example.helloworld.fragments.widgets;
 
 import com.example.helloworld.R;
 
@@ -43,11 +43,48 @@ public class MainTabbarFragment extends Fragment{
 		return view;
 	}
 	
-	void onTabClicked(View tab){
-		for(View otherTab:tabs){
-			otherTab.setSelected(otherTab == tab);
+	
+	
+	//----------------------------
+	//构造选择监听器
+	public static interface OnTabSelectedListener{
+		void onTabSelected(int index);
+	}
+	
+	OnTabSelectedListener onTabSelectedListener;
+	
+	public void setOnTabSelectedListener(OnTabSelectedListener onTabSelectedListener) {
+		this.onTabSelectedListener = onTabSelectedListener;
+	}
+	
+	//------------------------
+	//选择tabs时传入参数
+	public void setSelectedItem(int index){
+		if(index >= 0 && index < tabs.length){
+			onTabClicked(tabs[index]);
 		}
 	}
 	
+	
+	//-------------------------
+	//点击tab
+	void onTabClicked(View tab){
+		int selectedIndex = -1;
+		for(int i=0; i<tabs.length;i++){
+			View otherTab = tabs[i];
+			if(otherTab == tab){
+				otherTab.setSelected(otherTab == tab);
+				selectedIndex = i;
+			}else{
+				otherTab.setSelected(false);
+			}
+			
+		}
+		
+		if(onTabSelectedListener != null && selectedIndex >= 0){
+			onTabSelectedListener.onTabSelected(selectedIndex);
+		}
+		
+	}
 	
 }

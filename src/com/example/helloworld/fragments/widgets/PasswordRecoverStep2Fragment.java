@@ -1,4 +1,4 @@
-package com.example.helloworld.fragments;
+package com.example.helloworld.fragments.widgets;
 
 import com.example.helloworld.R;
 import com.example.helloworld.fragments.inputcells.SimpleTextInputCellFragment;

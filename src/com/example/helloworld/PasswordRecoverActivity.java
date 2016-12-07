@@ -1,8 +1,8 @@
 package com.example.helloworld;
 
-import com.example.helloworld.fragments.PasswordRecoverStep1Fragment;
-import com.example.helloworld.fragments.PasswordRecoverStep1Fragment.OnGoNextListener;
-import com.example.helloworld.fragments.PasswordRecoverStep2Fragment;
+import com.example.helloworld.fragments.widgets.PasswordRecoverStep1Fragment;
+import com.example.helloworld.fragments.widgets.PasswordRecoverStep2Fragment;
+import com.example.helloworld.fragments.widgets.PasswordRecoverStep1Fragment.OnGoNextListener;
 
 import android.accounts.Account;
 import android.accounts.OnAccountsUpdateListener;
