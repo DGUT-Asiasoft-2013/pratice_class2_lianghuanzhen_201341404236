@@ -15,19 +15,16 @@
             android:orientation="vertical" >
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="FEEDS"
                 android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:background="@drawable/feeds_bar_title_bg" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@android:color/darker_gray" >
-            </FrameLayout>
+       
             
             <ListView
                 android:id="@+id/list" 

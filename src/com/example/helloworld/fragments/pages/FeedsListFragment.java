@@ -114,7 +114,7 @@ public class FeedsListFragment extends Fragment {
 	public void onItemClickLis(int position){
 		String text = new String(data[position]);
 		Intent itnt = new Intent(getActivity(),FeedsContentActivity.class);
-	
+		itnt.putExtra("text", text);
 		
 		startActivity(itnt);
 	}
