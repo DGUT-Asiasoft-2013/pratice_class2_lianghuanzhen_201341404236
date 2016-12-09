@@ -26,10 +26,14 @@ public class ShareActivity extends Activity{
 	}
 	
 	void goHelloWorld(){
-		Intent itnt = new Intent(this,HelloWorldActivity.class);	
+		
+		
+		Intent itnt = new Intent(this,HelloWorldActivity.class);
 		startActivity(itnt);
 		
-		overridePendingTransition(R.anim.add_out_button, R.anim.add_in_button);
+		overridePendingTransition(R.anim.add_in_button, R.anim.add_out_button);
+		finish();
+		
 	}
 	
 	

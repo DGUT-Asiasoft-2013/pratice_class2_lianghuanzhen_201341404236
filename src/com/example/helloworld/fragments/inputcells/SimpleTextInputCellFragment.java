@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 public class SimpleTextInputCellFragment extends BaseInputCellFragment {
 
-//	WeakReference<TextView>  label; //弱引用，垃圾回收
+//	WeakReference<TextView>  label; 
 	TextView label;
 	EditText edit;
 	
@@ -46,6 +46,11 @@ public class SimpleTextInputCellFragment extends BaseInputCellFragment {
 		}else{
 			edit.setInputType(EditorInfo.TYPE_CLASS_TEXT);
 		}
+	}
+	
+	public String getText(){
+		String editt = edit.getText().toString();
+		return editt;
 	}
 
 }

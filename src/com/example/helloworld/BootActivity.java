@@ -89,7 +89,15 @@ public class BootActivity extends Activity {
 			//连接失败
 			@Override
 			public void onFailure(Call arg0, final IOException arg1) {
-				Toast.makeText(getApplicationContext(), arg1.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+				BootActivity.this.runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						Toast.makeText(getApplicationContext(), arg1.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+						startLoginActivity();
+					}
+				});
+				
 
 			}
 		});

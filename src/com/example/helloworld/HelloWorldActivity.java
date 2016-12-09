@@ -95,8 +95,9 @@ public class HelloWorldActivity extends Activity {
 		Intent itnt = new Intent(this,ShareActivity.class);	
 		startActivity(itnt);
 		
-		
 		overridePendingTransition(R.anim.add_in_button,R.anim.add_out_button);
+		finish();
+		
 	}
 
 
