@@ -1,5 +1,7 @@
 package com.example.helloworld.fragments.inputcells;
 
+import java.io.ByteArrayOutputStream;
+
 import com.example.helloworld.R;
 
 import android.app.Activity;
@@ -10,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,7 +34,9 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 	TextView labelText;
 	TextView hintText;
 	
+	byte[] pngData;
 	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
@@ -41,6 +46,7 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 		labelText = (TextView) view.findViewById(R.id.label);
 		hintText = (TextView) view.findViewById(R.id.hint);
 		
+		
 		imageView.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -49,9 +55,11 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 			}
 		});
 		
+		
 		return view;
 	}
 	
+
 	
 
 	void onImageViewClicked(){
@@ -97,6 +105,13 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 		startActivityForResult(itnt, REQUEST_ALBUM);
 	}
 	
+	void saveBitmap(Bitmap bmp){
+		ByteArrayOutputStream bStream = new ByteArrayOutputStream(); 
+		bmp.compress(CompressFormat.PNG, 100, bStream);
+		pngData = bStream.toByteArray();
+	}
+
+	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode == Activity.RESULT_CANCELED) return;
@@ -105,7 +120,8 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 			
 			Bitmap bmp = (Bitmap)data.getExtras().get("data");
 			imageView.setImageBitmap(bmp);
-			
+			//保存图片
+			saveBitmap(bmp);
 			
 //			Object dataObj = data.getExtras().get("data");
 //			Log.d("camera data", dataObj.getClass().toString());
@@ -119,6 +135,9 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 			try{
 			Bitmap bmp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
 			imageView.setImageBitmap(bmp);
+			//保存图片
+			saveBitmap(bmp);
+			
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -129,10 +148,13 @@ public class PictureInputCellFragment extends BaseInputCellFragment {
 //			Toast.makeText(getActivity(), obj.getClass().toString(), Toast.LENGTH_LONG).show();
 			
 		}
-		
+
 	}
 	
-
+	//让其他类可以获得pngData
+	public byte[] getPngData(){
+		return pngData;
+	}
 	
 	@Override
 	public void setLabelText(String labelText) {
