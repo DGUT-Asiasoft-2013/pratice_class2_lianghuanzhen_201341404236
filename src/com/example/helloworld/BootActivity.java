@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import api.Server;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -45,6 +46,8 @@ public class BootActivity extends Activity {
 		//				startLoginActivity();
 		//			}
 		//		}, 1000);
+		
+		/*
 		//-------------
 		//---创建客户端，访问服务器的hellloword
 		OkHttpClient client = new OkHttpClient();
@@ -53,6 +56,15 @@ public class BootActivity extends Activity {
 		Request request = new Request.Builder()
 				.url("http://172.27.0.10:8080/membercenter/api/hello")
 				.method("GET", null)
+				.build();
+		
+		//-------------------------
+		*/
+		
+		OkHttpClient client = Server.getSharedClient();
+		
+		Request request = Server.requestBuilderWithApi("hello")
+				.method("get", null)
 				.build();
 		
 		//enqueue是异步的，先运行UI发送请求到后台的队列中，后台运行完返回数据给UI，运行UI

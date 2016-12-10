@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import api.Server;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -82,6 +83,7 @@ public class RegisterActivity extends Activity {
 
 	}
 
+	@SuppressWarnings("unused")
 	void submit(){
 		//--------------
 		//验证密码与重复密码是否相同
@@ -94,6 +96,21 @@ public class RegisterActivity extends Activity {
 			.setIcon(android.R.drawable.ic_dialog_alert)
 			.setNegativeButton("好", null)
 			.show();
+			return ;
+		}else if(password == null){ 
+			new AlertDialog.Builder(RegisterActivity.this)
+			.setMessage("密码不能为空哦")
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.setNegativeButton("好", null)
+			.show();
+			return;
+		}else if(passwordRepeat == null){
+			new AlertDialog.Builder(RegisterActivity.this)
+			.setMessage("还没有输入重复密码哦")
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.setNegativeButton("好", null)
+			.show();
+			return ;
 		}else{
 
 
@@ -118,7 +135,9 @@ public class RegisterActivity extends Activity {
 
 			
 			
-			OkHttpClient client = new OkHttpClient();
+//			OkHttpClient client = new OkHttpClient();
+			OkHttpClient client = Server.getSharedClient();
+			
 
 			//----------------
 			//创建存储图片
@@ -134,8 +153,13 @@ public class RegisterActivity extends Activity {
 			MultipartBody newBody = requestBody.build();
 			
 			//创建请求，包含地址，方法("GET","POST","PUT","DELETE")
-			Request request = new Request.Builder()
-					.url("http://172.27.0.10:8080/membercenter/api/register")
+//			Request request = new Request.Builder()
+//					.url("http://172.27.0.10:8080/membercenter/api/register")
+//					.method("post", null)
+//					.post(newBody)
+//					.build();
+			
+			Request request = Server.requestBuilderWithApi("register")
 					.method("post", null)
 					.post(newBody)
 					.build();
@@ -179,7 +203,7 @@ public class RegisterActivity extends Activity {
 
 						@Override
 						public void run() {
-
+							progressDialog.dismiss();
 							RegisterActivity.this.onFailure(arg0, arg1);
 
 						}
