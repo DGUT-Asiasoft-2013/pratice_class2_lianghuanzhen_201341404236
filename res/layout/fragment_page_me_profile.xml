@@ -25,6 +25,16 @@
                 android:text="Setting for Me"
                 android:textColor="@android:color/black" />
         </FrameLayout>
+        
+        <com.example.helloworld.fragments.widgets.AvatarView 
+            android:id="@+id/avatar"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            />
+        
     </FrameLayout>
+
+
 
 </FrameLayout>

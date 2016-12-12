@@ -120,7 +120,8 @@ public class LoginActivity extends Activity {
 			//上面代码已经被弄到Server上
 			//-----------------
 			OkHttpClient client = Server.getSharedClient();
-			
+			//加密MD5
+			password = MD5.getMD5(password);
 			MultipartBody newBody = new MultipartBody.Builder()
 					.setType(MultipartBody.FORM)
 					.addFormDataPart("account", account)
@@ -137,6 +138,7 @@ public class LoginActivity extends Activity {
 			progressDialog.setMessage("等待中，请稍后...");
 			progressDialog.setCancelable(false);
 			progressDialog.setCanceledOnTouchOutside(false);
+			progressDialog.show();
 
 			client.newCall(request).enqueue(new Callback() {
 
@@ -200,7 +202,7 @@ public class LoginActivity extends Activity {
 			public void onClick(DialogInterface dialog, int which) {
 				Intent itnt = new Intent(LoginActivity.this,HelloWorldActivity.class);
 				startActivity(itnt);
-				finish();
+//				finish();
 			}
 		})
 		.show();

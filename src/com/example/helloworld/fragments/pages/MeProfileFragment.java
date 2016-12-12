@@ -4,14 +4,18 @@ import java.io.IOException;
 
 import com.example.helloworld.R;
 import com.example.helloworld.fragments.inputcells.SimpleTextInputCellFragment;
+import com.example.helloworld.fragments.widgets.AvatarView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import android.R.color;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import api.Server;
 import api.entity.User;
@@ -25,12 +29,16 @@ public class MeProfileFragment extends Fragment {
 	 
 	private TextView text;
 	View view;
+	AvatarView avatar;
+//	ProgressBar progress;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if(view == null){
 			view = inflater.inflate(R.layout.fragment_page_me_profile, null);
 			text = (TextView) view.findViewById(R.id.frag_me_name);
+//			progress = (ProgressBar) view.findViewById(R.id.progress);
+			avatar = (AvatarView) view.findViewById(R.id.avatar);
 			
 		}
 		
@@ -39,7 +47,12 @@ public class MeProfileFragment extends Fragment {
 		return view;
 	}
 	
-	void showView(){
+	@Override
+	public void onResume() {
+		super.onResume();
+		
+		view.setVisibility(View.GONE);
+//		progress.setVisibility(View.VISIBLE);
 		
 		OkHttpClient client = Server.getSharedClient();
 		Request request = Server.requestBuilderWithApi("me")
@@ -75,22 +88,33 @@ public class MeProfileFragment extends Fragment {
 			
 			@Override
 			public void onFailure(Call arg0, IOException arg1) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
 		
 		
 	}
+	
+	void showView(){
+		
+		
+		
+	}
 	void onResponse(Call arg0, User user) {
 		text.setText("Hello "+ user.getAccount());
+		avatar.load(user);
+		text.setVisibility(view.VISIBLE);
+		text.setTextColor(Color.BLACK);
+//		text.setText("dddddd");
+//		textcOLO
+//		SETTEXT
+		
 	}
 
 	void onFailure(Call arg0, Exception e){
-		new AlertDialog.Builder(getActivity())
-		.setMessage("请求失败")
-		.setNegativeButton("好", null)
-		.show();
+		text.setVisibility(View.VISIBLE);
+		text.setTextColor(Color.RED);
+		text.setText(e.getMessage());
 	}
 
 	

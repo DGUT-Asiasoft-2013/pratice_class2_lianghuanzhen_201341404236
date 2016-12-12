@@ -172,7 +172,7 @@ public class RegisterActivity extends Activity {
 			progressDialog.setCanceledOnTouchOutside(false);
 
 
-
+			
 			client.newCall(request).enqueue(new Callback() {
 
 				@Override
@@ -181,11 +181,13 @@ public class RegisterActivity extends Activity {
 
 						@Override
 						public void run() {
-
+							
 							progressDialog.dismiss();
 
 							try {
-								RegisterActivity.this.onResponse(arg0,arg1);
+								final String massage;
+								massage = arg1.body().string();
+								RegisterActivity.this.onResponse(arg0,massage);
 							} catch (Exception e) {
 								e.printStackTrace();
 								RegisterActivity.this.onFailure(arg0, e);
@@ -217,10 +219,10 @@ public class RegisterActivity extends Activity {
 
 
 
-	void onResponse(Call arg0, Response arg1) throws IOException{
+	void onResponse(Call arg0, String arg1) throws IOException{
 		new AlertDialog.Builder(this)
 		.setTitle("请求成功")
-		.setMessage(arg1.body().string())
+		.setMessage(arg1)//arg1.body().string()放后台
 		.setNegativeButton("好", null)
 		.show();
 
