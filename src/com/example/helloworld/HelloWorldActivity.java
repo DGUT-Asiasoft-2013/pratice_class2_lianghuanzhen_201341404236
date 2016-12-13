@@ -61,7 +61,9 @@ public class HelloWorldActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		if(tabbar.getSelectedIndex()<0){
 		tabbar.setSelectedItem(0);
+		}
 	}
 	
 	//------------------------

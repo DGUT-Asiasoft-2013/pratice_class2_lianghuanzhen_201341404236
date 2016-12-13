@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MainTabbarFragment extends Fragment{
-	
+
 	View btnNew,tabFeeds,tabNotes,tabSearch,tabMe;
 	View[] tabs;
 
@@ -20,46 +20,46 @@ public class MainTabbarFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.fragment_main_tabbar, null);
-		
+
 		btnNew = view.findViewById(R.id.btn_new);
 		tabFeeds = view.findViewById(R.id.tab_feeds);
 		tabNotes = view.findViewById(R.id.tab_notes);
 		tabSearch = view.findViewById(R.id.tab_search);
 		tabMe = view.findViewById(R.id.tab_me);
-		
+
 		tabs = new View[]{
 				tabFeeds,tabNotes,tabSearch,tabMe
 		};
-		
+
 		for(final View tab: tabs){
 			tab.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					onTabClicked(tab);
-					
+
 				}
 			});
 		}
 
-		
+
 		return view;
 	}
-	
-	
-	
+
+
+
 	//----------------------------
 	//构造选择监听器
 	public static interface OnTabSelectedListener{
 		void onTabSelected(int index);
 	}
-	
+
 	OnTabSelectedListener onTabSelectedListener;
-	
+
 	public void setOnTabSelectedListener(OnTabSelectedListener onTabSelectedListener) {
 		this.onTabSelectedListener = onTabSelectedListener;
 	}
-	
+
 	//------------------------
 	//选择tabs时传入参数
 	public void setSelectedItem(int index){
@@ -67,8 +67,8 @@ public class MainTabbarFragment extends Fragment{
 			onTabClicked(tabs[index]);
 		}
 	}
-	
-	
+
+
 	//-------------------------
 	//点击tab
 	void onTabClicked(View tab){
@@ -81,14 +81,21 @@ public class MainTabbarFragment extends Fragment{
 			}else{
 				otherTab.setSelected(false);
 			}
-			
+
 		}
-		
+
 		if(onTabSelectedListener != null && selectedIndex >= 0){
 			onTabSelectedListener.onTabSelected(selectedIndex);
 		}
-		
+
 	}
 	//------------
+
+	public int getSelectedIndex() {
+		for(int i=0; i<tabs.length; i++){
+			if(tabs[i].isSelected()) return i;
+		}
+		return -1;
+	}
 
 }

@@ -42,20 +42,25 @@ public class AvatarView extends View {
 	Handler mainThreadHandler = new Handler();;
 
 	public void setBitmap(Bitmap bmp){
-//		if(bmp == null){
-//			return;
-//		}	
-		paint = new Paint();
-		paint.setShader(new BitmapShader(bmp, TileMode.REPEAT, TileMode.REPEAT));
-		radius = Math.min(bmp.getWidth(), bmp.getHeight())/2;
-		Log.d("radius", radius + "");
-		invalidate();		
+//		if(bmp == null) return;
+
+		if(bmp!=null){
+			
+			paint = new Paint();
+			paint.setShader(new BitmapShader(bmp, TileMode.REPEAT, TileMode.REPEAT));
+			radius = (Math.min(bmp.getWidth(), bmp.getHeight()))/4;
+			Log.d("radius", radius + "");
+			invalidate();	
+			
+		}
 	}
 
 	public void load(User user){
+		String imageUrl = Server.serverAddress + user.getAvatar();
+		Log.d("yy", imageUrl); // 获取返回数据显示到log cat上
 		OkHttpClient client = Server.getSharedClient();
 		Request request = new Request.Builder()
-				.url(Server.serverAddress + user.getAvatar())
+				.url(imageUrl)
 				.method("get",null)
 				.build();
 
@@ -63,20 +68,20 @@ public class AvatarView extends View {
 
 			@Override
 			public void onResponse(Call arg0, Response arg1) throws IOException {
-				
-				
-					byte[] bytes = arg1.body().bytes();
-					final Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-					mainThreadHandler.post(new Runnable() {
 
-						@Override
-						public void run() {
-							setBitmap(bmp);
 
-						}
-					});
+				byte[] bytes = arg1.body().bytes();
+				final Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+				mainThreadHandler.post(new Runnable() {
 
-				
+					@Override
+					public void run() {
+						setBitmap(bmp);
+
+					}
+				});
+
+
 
 
 			}
