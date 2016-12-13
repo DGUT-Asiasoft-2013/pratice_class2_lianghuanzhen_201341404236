@@ -4,28 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/frag_me_name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center" >
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Setting for Me"
+        android:textColor="@android:color/black" />
 
-        <TextView
-            android:id="@+id/frag_me_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Setting for Me"
-            android:textColor="@android:color/black" />
-
-        <com.example.helloworld.fragments.widgets.AvatarView
-            android:id="@+id/avatar"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:background="@android:color/darker_gray" />
-        
-    </LinearLayout>
+    <com.example.helloworld.fragments.widgets.AvatarView
+        android:id="@+id/avatar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:background="@android:color/white" />
 
 </LinearLayout>

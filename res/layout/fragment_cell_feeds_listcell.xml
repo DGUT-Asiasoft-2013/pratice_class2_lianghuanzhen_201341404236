@@ -11,20 +11,17 @@
     <FrameLayout 
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/dgut_pp"></FrameLayout>
+        android:background="@drawable/duck1"></FrameLayout>
     
     <TextView
         android:id="@+id/cell_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:text="输入项目"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
     
-
-
-  
 
 </LinearLayout>

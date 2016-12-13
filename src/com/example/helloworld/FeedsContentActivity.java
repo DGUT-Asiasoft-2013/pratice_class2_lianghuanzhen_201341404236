@@ -16,7 +16,7 @@ public class FeedsContentActivity extends Activity {
 
 		String text = getIntent().getStringExtra("text");
 
-		TextView textView = (TextView) findViewById(R.id.text);
+		TextView textView = (TextView) findViewById(R.id.text_view);
 		textView.setText(text);
 
 	}
