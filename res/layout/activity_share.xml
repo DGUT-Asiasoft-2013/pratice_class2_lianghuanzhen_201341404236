@@ -13,11 +13,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-            
-            <EditText android:id="@+id/input_share_title"
+
+            <EditText
+                android:id="@+id/input_share_title"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
-                android:background="@android:color/darker_gray" />
+                android:background="@android:color/white"
+                android:gravity="center"
+                android:hint="不如写个标题吧~(@^_^@)~"
+                android:layout_weight="0.1" />
 
             <EditText
                 android:id="@+id/input_share_thing"

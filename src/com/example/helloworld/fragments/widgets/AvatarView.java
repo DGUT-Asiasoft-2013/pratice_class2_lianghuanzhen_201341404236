@@ -77,12 +77,14 @@ public class AvatarView extends View {
 	}
 
 	public void load(User user){
-		String imageUrl = Server.serverAddress + user.getAvatar();
-		Log.d("yy", imageUrl); // 获取返回数据显示到log cat上
-		
+		load(Server.serverAddress + user.getAvatar());
+}
+	public void load(String url){
+
+		Log.d("yy",url);
 		OkHttpClient client = Server.getSharedClient();
 		Request request = new Request.Builder()
-				.url(imageUrl)
+				.url(url)
 				.method("get",null)
 				.build();
 

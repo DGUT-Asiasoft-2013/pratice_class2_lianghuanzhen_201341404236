@@ -2,63 +2,55 @@ package com.example.helloworld.fragments.pages;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Random;
-import java.util.zip.Inflater;
 
+import com.example.helloworld.CommentsContentActivity;
 import com.example.helloworld.FeedsContentActivity;
 import com.example.helloworld.R;
 import com.example.helloworld.fragments.widgets.AvatarView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import android.R.string;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-
-import api.Server;
-import api.entity.Page;
-import api.entity.Article;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MultipartBody;
-import okhttp3.Request;
-import okhttp3.Response;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import api.Server;
+import api.entity.Article;
+import api.entity.Comment;
+import api.entity.Page;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
 
-
-public class FeedsListFragment extends Fragment {
-
+public class CommentListFragment extends Fragment {
 	View view;
 	ListView listView;
 
-	List<Article> data;
+	List<Comment> data;
 	int page = 0;
 	View btnLoadMore;//加载更多
 	TextView textLoadMore;
+	String articleId;
 
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if(view == null){
-			view = inflater.inflate(R.layout.fragment_page_feeds_list, null);
+			view = inflater.inflate(R.layout.fragment_page_comment_list, null);
 			btnLoadMore = inflater.inflate(R.layout.fragment_btn_load_more, null);
 			textLoadMore = (TextView) btnLoadMore.findViewById(R.id.text_loadmore);
 
-			listView = (ListView) view.findViewById(R.id.list);
+			listView = (ListView) view.findViewById(R.id.comment_list);
 			listView.addFooterView(btnLoadMore);
 			listView.setAdapter(listAdapter);
 
@@ -99,30 +91,30 @@ public class FeedsListFragment extends Fragment {
 
 			if(convertView == null){
 				LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-				view = inflater.inflate(R.layout.fragment_cell_feeds_listcell, null);
+				view = inflater.inflate(R.layout.fragment_cell_comment_list, null);
 
 			}else{
 				view = convertView;
 			}
 
 			//设置数据，并获取
-			TextView Title = (TextView) view.findViewById(R.id.text_title);  //标题
+
 			AvatarView avatar = (AvatarView)view.findViewById(R.id.user_avatar); //头像
-			TextView textContent = (TextView) view.findViewById(R.id.text);  //文章
+			TextView textComment = (TextView) view.findViewById(R.id.text);  //评论内容
 			TextView textAuthorName = (TextView)view.findViewById(R.id.user_name); //作者
-			TextView textDate = (TextView)view.findViewById(R.id.text_date);  //编写日期
+			TextView commentDate = (TextView)view.findViewById(R.id.comment_date);  //评论日期
 
-			Article article = data.get(position);
+			Comment comment = data.get(position);
 
-			Title.setText(article.getTitle());
-			textContent.setText(article.getText());
-			textAuthorName.setText(article.getAuthorName());
-			avatar.load(Server.serverAddress + article.getAuthorAvatar());
 
+			textComment.setText(comment.getText());
+			textAuthorName.setText(comment.getAuthor().getName());
+			avatar.load(Server.serverAddress + comment.getAuthor().getAvatar());
+			//
 			String list_createDate = DateFormat
 					.format("yyyy-MM-dd hh:mm",
 							data.get(position).getCreateDate()).toString();
-			textDate.setText(list_createDate);
+			commentDate.setText(list_createDate);
 
 			return view;
 		}
@@ -146,7 +138,7 @@ public class FeedsListFragment extends Fragment {
 
 
 	void onItemClicked(int position){
-		Article text = data.get(position);
+		Comment text = data.get(position);
 
 		Intent itnt = new Intent(getActivity(), FeedsContentActivity.class);
 		itnt.putExtra("text", text);
@@ -159,9 +151,9 @@ public class FeedsListFragment extends Fragment {
 		super.onResume();
 		reload();
 	}
-	
+
 	void reload(){
-		Request request = Server.requestBuilderWithApi("feeds")
+		Request request = Server.requestBuilderWithApi("article/"+getArticleId()+"/comments")
 				.get()
 				.build();
 
@@ -170,17 +162,17 @@ public class FeedsListFragment extends Fragment {
 			@Override
 			public void onResponse(Call arg0, Response arg1) throws IOException {
 				try {
-					final Page<Article> data = new ObjectMapper()
+					final Page<Comment> data = new ObjectMapper()
 							.readValue(arg1.body().string(),
 									new TypeReference<Page<Article>>() {});
-				
+
 					getActivity().runOnUiThread(new Runnable() {
-					
+
 						@Override
 						public void run() {
-							FeedsListFragment.this.page = data.getNumber();//放进主线程进行，确保数据部位空
-							FeedsListFragment.this.data = data.getContent();
-							
+							CommentListFragment.this.page = data.getNumber();//放进主线程进行，确保数据部位空
+							CommentListFragment.this.data = data.getContent();
+
 							listAdapter.notifyDataSetInvalidated();
 
 						}
@@ -219,7 +211,9 @@ public class FeedsListFragment extends Fragment {
 		btnLoadMore.setEnabled(false);
 		textLoadMore.setText("载入中...");
 
-		Request request = Server.requestBuilderWithApi("feeds"+(page+1)).get().build();
+		Request request = Server.requestBuilderWithApi("article"+getArticleId()+"/comments")
+				.build();
+		
 		Server.getSharedClient().newCall(request).enqueue(new Callback() {
 
 			@Override
@@ -234,23 +228,23 @@ public class FeedsListFragment extends Fragment {
 					}
 				});
 				try {
-					final Page<Article> feeds = new ObjectMapper()
+					final Page<Comment> comments = new ObjectMapper()
 							.readValue(arg1.body().string(), 
 									new TypeReference<Page<Article>>(){});
-					if(feeds.getNumber()>page){
-						
+					if(comments.getNumber()>page){
+
 
 						getActivity().runOnUiThread(new Runnable() {
 
 							@Override
 							public void run() {
 								if(data==null){
-									data = feeds.getContent();
+									data = comments.getContent();
 								}else{
-									data.addAll(feeds.getContent());
+									data.addAll(comments.getContent());
 								}
-								page = feeds.getNumber();
-								
+								page = comments.getNumber();
+
 								listAdapter.notifyDataSetInvalidated();
 
 							}
@@ -276,4 +270,12 @@ public class FeedsListFragment extends Fragment {
 		});
 
 	}
+	public String getArticleId() {
+		return articleId;
+	}
+
+	public void setArticleId(String articleId) {
+		this.articleId = articleId;
+	}
+
 }

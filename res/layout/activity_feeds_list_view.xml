@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -8,113 +9,112 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal" >
 
-        <FrameLayout
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:background="@drawable/duck1" >
-        </FrameLayout>
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical" >
+
+            <com.example.helloworld.fragments.widgets.AvatarView
+                android:id="@+id/user_avatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@android:color/white" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:gravity="center"
+                android:text="昵称" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="65dp"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/text_date"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:orientation="horizontal" >
+                android:layout_height="15dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="right"
+                android:text="2016-4-5"
+                android:textColor="@android:color/holo_blue_dark" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Name:"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="ID Duck_Pink"
-                    android:textSize="10sp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/text_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="Srudent ID:"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="201313131"
-                    android:textSize="10sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Class:"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="软件2班"
-                    android:textSize="10sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Email:"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Duck_Pink@163.com"
-                    android:textSize="10sp" />
-            </LinearLayout>
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="标题"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/text_view"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@android:color/black"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
+        android:gravity="top"
+        android:padding="15dp"
         android:text="Welcome"
-        android:textSize="24sp" />
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <fragment
+        android:id="@+id/show_comment_list"
+        android:layout_width="match_parent"
+        android:layout_height="263dp"
+        android:layout_marginTop="1dp"
+        android:layout_weight="0.63"
+        class="com.example.helloworld.fragments.pages.CommentListFragment"
+        tools:layout="@layout/fragment_page_comment_list" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/btn_keep_text"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="0.3"
+            android:padding="15dp"
+            android:text="收藏" />
+
+        <Button
+            android:id="@+id/btn_like"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="0.3"
+            android:padding="15dp"
+            android:text="赞" />
+
+        <Button
+            android:id="@+id/btn_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="0.3"
+            android:padding="15dp"
+            android:text="评论" />
+    </LinearLayout>
 
 </LinearLayout>

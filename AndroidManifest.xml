@@ -49,6 +49,10 @@
             android:name="com.example.helloworld.ShareActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
+        <activity
+            android:name="com.example.helloworld.CommentActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>

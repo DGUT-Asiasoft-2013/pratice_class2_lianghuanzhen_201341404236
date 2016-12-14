@@ -38,7 +38,7 @@ public class MeProfileFragment extends Fragment {
 			view = inflater.inflate(R.layout.fragment_page_me_profile, null);
 			text = (TextView) view.findViewById(R.id.frag_me_name);
 			//			progress = (ProgressBar) view.findViewById(R.id.progress);
-			avatar = (AvatarView) view.findViewById(R.id.avatar);
+			avatar = (AvatarView) view.findViewById(R.id.user_avatar);
 
 		}
 
