@@ -62,18 +62,23 @@ public class SearchPageFragment extends Fragment {
 
 			});
 			
-			view.findViewById(R.id.btn_search).setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					searchByKeyword();
-								
-				}
-			});
+			
 
 			
 		}
 		return view;
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		view.findViewById(R.id.btn_search).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				searchByKeyword();
+			}
+		});
 	}
 	
 	void searchByKeyword(){
@@ -84,9 +89,7 @@ public class SearchPageFragment extends Fragment {
 		inputMethodManager.hideSoftInputFromInputMethod(keyword.getWindowToken(), 0);
 		
 		reload(keywords);
-		
-		
-		
+			
 	}
 	
 
@@ -162,10 +165,7 @@ public class SearchPageFragment extends Fragment {
 		startActivity(itnt);
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-	}
+
 	
 	void reload(String keywords){
 		Request request = Server.requestBuilderWithApi("/article/s/"+ keywords)
