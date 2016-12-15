@@ -58,22 +58,13 @@ public class AvatarView extends View {
 			paint = new Paint();
 			paint.setShader(new BitmapShader(bmp, TileMode.REPEAT, TileMode.REPEAT));
 			paint.setAntiAlias(true);
-			radius = (Math.min(bmp.getWidth(), bmp.getHeight()))/2;
+//			radius = (Math.min(bmp.getWidth(), bmp.getHeight()))/2;
 			
 			srcWidth = bmp.getWidth();
 			srcHeight = bmp.getHeight();	
 		}
 		invalidate();
-		/*
-		if(bmp!=null){
 
-			paint = new Paint();
-			paint.setShader(new BitmapShader(bmp, TileMode.REPEAT, TileMode.REPEAT));
-			radius = (Math.min(bmp.getWidth(), bmp.getHeight()))/2;
-			Log.d("radius", radius + "");
-			invalidate();	
-
-		}*/
 	}
 
 	public void load(User user){
@@ -137,7 +128,9 @@ public class AvatarView extends View {
 
 			canvas.scale(1/scaleX, 1/scaleY);
 
-			canvas.drawCircle(getWidth()/2, getHeight()/2, radius, paint);
+//			canvas.drawCircle(getWidth()/2, getHeight()/2, radius, paint);
+			canvas.drawCircle(srcWidth/2, srcHeight/2, Math.min(srcWidth, srcHeight)/2, paint);
+			
 			canvas.restore();	
 		}
 	}

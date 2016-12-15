@@ -16,6 +16,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import api.Server;
-import api.entity.Article;
 import api.entity.Comment;
 import api.entity.Page;
 import okhttp3.Call;
@@ -40,6 +40,7 @@ public class CommentListFragment extends Fragment {
 	int page = 0;
 	View btnLoadMore;//加载更多
 	TextView textLoadMore;
+
 	String articleId;
 
 
@@ -50,7 +51,7 @@ public class CommentListFragment extends Fragment {
 			btnLoadMore = inflater.inflate(R.layout.fragment_btn_load_more, null);
 			textLoadMore = (TextView) btnLoadMore.findViewById(R.id.text_loadmore);
 
-			listView = (ListView) view.findViewById(R.id.comment_list);
+			listView = (ListView) view.findViewById(R.id.list_comment);
 			listView.addFooterView(btnLoadMore);
 			listView.setAdapter(listAdapter);
 
@@ -100,21 +101,21 @@ public class CommentListFragment extends Fragment {
 			//设置数据，并获取
 
 			AvatarView avatar = (AvatarView)view.findViewById(R.id.user_avatar); //头像
-			TextView textComment = (TextView) view.findViewById(R.id.text);  //评论内容
+			TextView textContent = (TextView) view.findViewById(R.id.text);  //文章
 			TextView textAuthorName = (TextView)view.findViewById(R.id.user_name); //作者
-			TextView commentDate = (TextView)view.findViewById(R.id.comment_date);  //评论日期
+			TextView textDate = (TextView)view.findViewById(R.id.comment_date);  //编写日期
 
 			Comment comment = data.get(position);
 
-
-			textComment.setText(comment.getText());
+			Log.d("comment",comment.toString());
+			textContent.setText(comment.getText());
 			textAuthorName.setText(comment.getAuthor().getName());
 			avatar.load(Server.serverAddress + comment.getAuthor().getAvatar());
-			//
+
 			String list_createDate = DateFormat
 					.format("yyyy-MM-dd hh:mm",
 							data.get(position).getCreateDate()).toString();
-			commentDate.setText(list_createDate);
+			textDate.setText(list_createDate);
 
 			return view;
 		}
@@ -153,6 +154,7 @@ public class CommentListFragment extends Fragment {
 	}
 
 	void reload(){
+
 		Request request = Server.requestBuilderWithApi("article/"+getArticleId()+"/comments")
 				.get()
 				.build();
@@ -162,9 +164,10 @@ public class CommentListFragment extends Fragment {
 			@Override
 			public void onResponse(Call arg0, Response arg1) throws IOException {
 				try {
+					String value = arg1.body().string();
 					final Page<Comment> data = new ObjectMapper()
-							.readValue(arg1.body().string(),
-									new TypeReference<Page<Article>>() {});
+							.readValue(value,
+									new TypeReference<Page<Comment>>() {});
 
 					getActivity().runOnUiThread(new Runnable() {
 
@@ -211,9 +214,7 @@ public class CommentListFragment extends Fragment {
 		btnLoadMore.setEnabled(false);
 		textLoadMore.setText("载入中...");
 
-		Request request = Server.requestBuilderWithApi("article"+getArticleId()+"/comments")
-				.build();
-		
+		Request request = Server.requestBuilderWithApi("article/"+getArticleId()+"comments"+(page+1)).get().build();
 		Server.getSharedClient().newCall(request).enqueue(new Callback() {
 
 			@Override
@@ -228,10 +229,10 @@ public class CommentListFragment extends Fragment {
 					}
 				});
 				try {
-					final Page<Comment> comments = new ObjectMapper()
+					final Page<Comment> feeds = new ObjectMapper()
 							.readValue(arg1.body().string(), 
-									new TypeReference<Page<Article>>(){});
-					if(comments.getNumber()>page){
+									new TypeReference<Page<Comment>>(){});
+					if(feeds.getNumber()>page){
 
 
 						getActivity().runOnUiThread(new Runnable() {
@@ -239,11 +240,11 @@ public class CommentListFragment extends Fragment {
 							@Override
 							public void run() {
 								if(data==null){
-									data = comments.getContent();
+									data = feeds.getContent();
 								}else{
-									data.addAll(comments.getContent());
+									data.addAll(feeds.getContent());
 								}
-								page = comments.getNumber();
+								page = feeds.getNumber();
 
 								listAdapter.notifyDataSetInvalidated();
 

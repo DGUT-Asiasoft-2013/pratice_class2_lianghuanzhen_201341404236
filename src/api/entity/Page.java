@@ -10,7 +10,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Page<T> {
 	List<T> content;
 	Integer number;
+	Integer numberOfElements;
 	
+	public Integer getNumberOfElements() {
+		return numberOfElements;
+	}
+	public void setNumberOfElements(Integer numberOfElements) {
+		this.numberOfElements = numberOfElements;
+}
 	
 	public List<T> getContent() {
 		return content;

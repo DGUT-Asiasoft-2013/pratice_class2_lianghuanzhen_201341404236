@@ -3,6 +3,10 @@ package api.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Comment implements Serializable {
 	
 	Integer id;
@@ -10,6 +14,8 @@ public class Comment implements Serializable {
 	String text;
 	User author;
 	Article article;
+	Date createDate;
+	Date editDate;
 	
 	public Integer getId() {
 		return id;
@@ -47,7 +53,6 @@ public class Comment implements Serializable {
 	public void setEditDate(Date editDate) {
 		this.editDate = editDate;
 	}
-	Date createDate;
-	Date editDate;
+
 	
 }

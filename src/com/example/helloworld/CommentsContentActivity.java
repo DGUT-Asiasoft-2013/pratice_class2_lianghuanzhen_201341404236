@@ -23,7 +23,7 @@ public class CommentsContentActivity extends Activity {
 		Comment text = (Comment) getIntent().getSerializableExtra("text");
 		
 		AvatarView avatar = (AvatarView) findViewById(R.id.user_avatar); //头像
-		TextView textComment = (TextView) findViewById(R.id.text_comment);  //评论内容
+		TextView textComment = (TextView) findViewById(R.id.text);  //评论内容
 		TextView textAuthorName = (TextView) findViewById(R.id.user_name); //作者
 		TextView commentDate = (TextView) findViewById(R.id.comment_date);  //评论日期
 

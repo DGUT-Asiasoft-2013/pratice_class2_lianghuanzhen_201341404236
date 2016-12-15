@@ -36,39 +36,19 @@ public class BootActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 
-		//等待一秒，装装
-		//---------
-		//		Handler handler = new Handler();
-		//		handler.postDelayed(new Runnable() {
-		//			private int abcd = 0;
-		//
-		//			public void run() {
-		//				startLoginActivity();
-		//			}
-		//		}, 1000);
-		
 		/*
 		//-------------
 		//---创建客户端，访问服务器的hellloword
-		OkHttpClient client = new OkHttpClient();
 
 		//创建请求，包含地址，方法("GET","POST","PUT","DELETE")
-		Request request = new Request.Builder()
-				.url("http://172.27.0.10:8080/membercenter/api/hello")
-				.method("GET", null)
-				.build();
-		
-		//-------------------------
-		*/
-		
-		OkHttpClient client = Server.getSharedClient();
-		
+
+		 */		
 		Request request = Server.requestBuilderWithApi("hello")
 				.method("get", null)
 				.build();
-		
+
 		//enqueue是异步的，先运行UI发送请求到后台的队列中，后台运行完返回数据给UI，运行UI
-		client.newCall(request).enqueue(new okhttp3.Callback() {
+		Server.getSharedClient().newCall(request).enqueue(new okhttp3.Callback() {
 
 			//如果连接成功
 			@Override
@@ -102,14 +82,14 @@ public class BootActivity extends Activity {
 			@Override
 			public void onFailure(Call arg0, final IOException arg1) {
 				BootActivity.this.runOnUiThread(new Runnable() {
-					
+
 					@Override
 					public void run() {
 						Toast.makeText(getApplicationContext(), arg1.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
 						startLoginActivity();
 					}
 				});
-				
+
 
 			}
 		});

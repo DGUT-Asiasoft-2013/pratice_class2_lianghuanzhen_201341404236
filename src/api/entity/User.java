@@ -1,16 +1,15 @@
 package api.entity;
 
-public class User {
-	
+import java.io.Serializable;
+
+public class User implements Serializable{
 	Integer id;
-	
+
 	String account;
 	String passwordHash;
 	String name;
-	String avatar;
 	String email;
-	
-	
+	String avatar;
 	public Integer getId() {
 		return id;
 	}
@@ -35,16 +34,16 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAvatar() {
-		return avatar;
-	}
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 }

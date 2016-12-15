@@ -31,7 +31,7 @@ public class FeedsContentActivity extends Activity {
 		
 //		commentListView = (ListView) findViewById(R.id.list_comment);
 
-		Article text = (Article) getIntent().getSerializableExtra("text");//获取Article
+		Article article = (Article) getIntent().getSerializableExtra("data");//获取Article
 		TextView textView = (TextView) findViewById(R.id.text);
 		AvatarView avatar = (AvatarView) findViewById(R.id.user_avatar);
 		TextView textAuthorName = (TextView) findViewById(R.id.user_name);
@@ -39,12 +39,13 @@ public class FeedsContentActivity extends Activity {
 		TextView textDate = (TextView) findViewById(R.id.text_date);
 
 
-		textView.setText(text.getText());
-		avatar.load(Server.serverAddress + text.getAuthorAvatar());
-		textAuthorName.setText(text.getAuthorName());
-		textTitle.setText(text.getTitle());
-		textDate.setText(text.getCreateDate().toString());
-
+		textView.setText(article.getText());
+		avatar.load(Server.serverAddress + article.getAuthor().getAvatar());
+		textAuthorName.setText(article.getAuthor().getName());
+		textTitle.setText(article.getTitle());
+		textDate.setText(article.getCreateDate().toString());
+		fragComment.setArticleId(article.getId().toString());
+		
 		//评论
 		findViewById(R.id.btn_comment).setOnClickListener(new View.OnClickListener() {
 
@@ -54,32 +55,22 @@ public class FeedsContentActivity extends Activity {
 
 			}
 		});
-
-//		//评论列表点击
-//		commentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//			@Override
-//			public void onItemClick(AdapterView<?> parent,View view,int position,long id){
-//				onItemClicked(position);
-//			}
-//
-//		});
+		
 
 	}
-//	void onItemClicked(int position){
-//		Article text = (Article) getIntent().getSerializableExtra("text");
-//
-//		Intent itnt = new Intent(this, FeedsContentActivity.class);
-//		itnt.putExtra("text", text);
-//
-//		startActivity(itnt);
-//	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+//		Article article = (Article) getIntent().getSerializableExtra("data");
+		
+	}
 
 	void goCommentActivity(){
 		//		Article commentMess = text;
-//		Article text = (Article) getIntent().getSerializableExtra("text");
+		Article article = (Article) getIntent().getSerializableExtra("data");
 
 		Intent itnt = new Intent(this,CommentActivity.class);
-//		itnt.putExtra("text", text);
+		itnt.putExtra("data", article);
 //
 		startActivity(itnt);
 

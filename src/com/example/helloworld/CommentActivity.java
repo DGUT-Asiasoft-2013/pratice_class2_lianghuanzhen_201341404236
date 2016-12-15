@@ -19,7 +19,7 @@ import okhttp3.Response;
 
 public class CommentActivity extends Activity{
 
-	Article text;
+	Article article;
 	EditText commentText;
 
 	@Override
@@ -29,7 +29,8 @@ public class CommentActivity extends Activity{
 		setContentView(R.layout.activity_comment);
 
 		commentText = (EditText) findViewById(R.id.input_comment_text);
-		text = (Article) getIntent().getSerializableExtra("text");
+		
+		article = (Article) getIntent().getSerializableExtra("data");
 
 		findViewById(R.id.btn_comment_send).setOnClickListener(new View.OnClickListener() {
 
@@ -48,8 +49,8 @@ public class CommentActivity extends Activity{
 		MultipartBody body = new MultipartBody.Builder()
 				.addFormDataPart("text", comment)
 				.build();
-
-		Request request = Server.requestBuilderWithApi("article/"+text.getId()+"/comments")
+		article = (Article) getIntent().getSerializableExtra("data");
+		Request request = Server.requestBuilderWithApi("/article/"+article.getId()+"/comments")
 				.post(body)
 				.build();
 

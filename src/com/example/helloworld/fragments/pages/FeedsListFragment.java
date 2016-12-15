@@ -116,8 +116,8 @@ public class FeedsListFragment extends Fragment {
 
 			Title.setText(article.getTitle());
 			textContent.setText(article.getText());
-			textAuthorName.setText(article.getAuthorName());
-			avatar.load(Server.serverAddress + article.getAuthorAvatar());
+			textAuthorName.setText(article.getAuthor().getName());
+			avatar.load(Server.serverAddress + article.getAuthor().getAvatar());
 
 			String list_createDate = DateFormat
 					.format("yyyy-MM-dd hh:mm",
@@ -146,10 +146,10 @@ public class FeedsListFragment extends Fragment {
 
 
 	void onItemClicked(int position){
-		Article text = data.get(position);
+		Article article = data.get(position);
 
 		Intent itnt = new Intent(getActivity(), FeedsContentActivity.class);
-		itnt.putExtra("text", text);
+		itnt.putExtra("data", article);
 
 		startActivity(itnt);
 	}
@@ -170,8 +170,9 @@ public class FeedsListFragment extends Fragment {
 			@Override
 			public void onResponse(Call arg0, Response arg1) throws IOException {
 				try {
+					String value = arg1.body().string();
 					final Page<Article> data = new ObjectMapper()
-							.readValue(arg1.body().string(),
+							.readValue(value,
 									new TypeReference<Page<Article>>() {});
 				
 					getActivity().runOnUiThread(new Runnable() {
@@ -221,12 +222,10 @@ public class FeedsListFragment extends Fragment {
 
 		Request request = Server.requestBuilderWithApi("feeds"+(page+1)).get().build();
 		Server.getSharedClient().newCall(request).enqueue(new Callback() {
-
-			@Override
+			
 			public void onResponse(Call arg0, Response arg1) throws IOException {
 				getActivity().runOnUiThread(new Runnable() {
 
-					@Override
 					public void run() {
 						btnLoadMore.setEnabled(true);
 						textLoadMore.setText("加载更多");
@@ -242,7 +241,6 @@ public class FeedsListFragment extends Fragment {
 
 						getActivity().runOnUiThread(new Runnable() {
 
-							@Override
 							public void run() {
 								if(data==null){
 									data = feeds.getContent();

@@ -106,10 +106,6 @@ public class MeProfileFragment extends Fragment {
 		avatar.load(user);
 		text.setVisibility(view.VISIBLE);
 		text.setTextColor(Color.BLACK);
-		
-		//		text.setText("dddddd");
-		//		textcOLO
-		//		SETTEXT
 
 	}
 
