@@ -2,6 +2,7 @@ package com.example.helloworld.fragments.pages;
 
 import java.io.IOException;
 
+import com.example.helloworld.LoginActivity;
 import com.example.helloworld.PasswordRecoverActivity;
 import com.example.helloworld.R;
 import com.example.helloworld.fragments.inputcells.SimpleTextInputCellFragment;
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import android.R.color;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -51,6 +53,33 @@ public class MeProfileFragment extends Fragment {
 				}
 			});
 			
+			view.findViewById(R.id.btn_login_cancel).setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					new AlertDialog.Builder(getActivity())
+					.setMessage("确定要注销吗")//arg1.body().string()放后台
+					.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Intent itnt = new Intent(getActivity(), LoginActivity.class);
+							startActivity(itnt);
+							getActivity().finish();
+						
+						}
+					})
+					.setPositiveButton("取消", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							
+							
+						}
+					})
+					.show();				
+				}
+			});
 			
 		}
 		return view;

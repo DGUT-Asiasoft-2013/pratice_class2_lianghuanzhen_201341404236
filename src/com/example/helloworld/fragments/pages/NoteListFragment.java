@@ -86,9 +86,7 @@ public class NoteListFragment extends Fragment {
 				
 				@Override
 				public void onClick(View v) {
-					commentMe.setTextColor(Color.BLACK);
-					myComment.setTextColor(Color.BLUE);
-					reload("/comment/my/receviedcomment");
+					getMyComment();
 					
 				}
 			});
@@ -98,20 +96,28 @@ public class NoteListFragment extends Fragment {
 				@Override
 				public void onClick(View v) {
 					
-					commentMe.setTextColor(Color.BLUE);
-					myComment.setTextColor(Color.BLACK);
-					reload(getComment);				
+					getCommentOfMe();			
 				}
 			});
 			
-			commentMe.setTextColor(Color.BLACK);
-			myComment.setTextColor(Color.BLUE);
-			reload("/comment/my/receviedcomment");
+			getMyComment();
 		}
 		
 		
 		return view;
 	}
+	
+	public void getMyComment(){
+		commentMe.setTextColor(Color.BLACK);
+		myComment.setTextColor(Color.BLUE);
+		reload("/comment/my/receviedcomment");
+	}
+	public void getCommentOfMe(){
+		commentMe.setTextColor(Color.BLUE);
+		myComment.setTextColor(Color.BLACK);
+		reload(getComment);	
+	}
+	
 	//-------
 		//创建适配器 BaseAdapter listAdapter
 		//getView(重要),getItemID,getItem,getCount
