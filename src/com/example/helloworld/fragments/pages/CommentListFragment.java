@@ -34,7 +34,7 @@ import okhttp3.Response;
 
 public class CommentListFragment extends Fragment {
 	View view;
-	ListView listView;
+	ListView commentsListView;
 
 	List<Comment> data;
 	int page = 0;
@@ -51,11 +51,11 @@ public class CommentListFragment extends Fragment {
 			btnLoadMore = inflater.inflate(R.layout.fragment_btn_load_more, null);
 			textLoadMore = (TextView) btnLoadMore.findViewById(R.id.text_loadmore);
 
-			listView = (ListView) view.findViewById(R.id.list_comment);
-			listView.addFooterView(btnLoadMore);
-			listView.setAdapter(listAdapter);
+			commentsListView = (ListView) view.findViewById(R.id.list_comment);
+			commentsListView.addFooterView(btnLoadMore);
+			commentsListView.setAdapter(listAdapter);
 
-			listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			commentsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent,View view,int position,long id){
@@ -141,10 +141,10 @@ public class CommentListFragment extends Fragment {
 	void onItemClicked(int position){
 		Comment text = data.get(position);
 
-		Intent itnt = new Intent(getActivity(), FeedsContentActivity.class);
+		Intent itnt = new Intent(this.getActivity(), CommentsContentActivity.class);
 		itnt.putExtra("text", text);
 
-		startActivity(itnt);
+	    getActivity().startActivityForResult(itnt, position);
 	}
 
 	@Override
