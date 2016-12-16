@@ -29,21 +29,21 @@
         android:layout_marginTop="80dp" >
 
         <Button
-            android:id="@+id/password_recover"
+            android:id="@+id/btn_password_recover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
             android:text="修改密码" />
 
         <Button
-            android:id="@+id/login_cancel"
+            android:id="@+id/btn_login_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
             android:text="注销" />
 
         <Button
-            android:id="@+id/name_recover"
+            android:id="@+id/btn_name_recover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"

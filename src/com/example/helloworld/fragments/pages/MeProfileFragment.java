@@ -2,6 +2,7 @@ package com.example.helloworld.fragments.pages;
 
 import java.io.IOException;
 
+import com.example.helloworld.PasswordRecoverActivity;
 import com.example.helloworld.R;
 import com.example.helloworld.fragments.inputcells.SimpleTextInputCellFragment;
 import com.example.helloworld.fragments.widgets.AvatarView;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import android.R.color;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -40,11 +42,22 @@ public class MeProfileFragment extends Fragment {
 			//			progress = (ProgressBar) view.findViewById(R.id.progress);
 			avatar = (AvatarView) view.findViewById(R.id.user_avatar);
 
+			view.findViewById(R.id.btn_password_recover).setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					goRecoverPassword();
+					
+				}
+			});
+			
+			
 		}
-
-//		showView();
-
 		return view;
+	}
+	void goRecoverPassword(){
+		Intent itnt = new Intent(this.getActivity(), PasswordRecoverActivity.class);
+		startActivity(itnt);
 	}
 
 	@Override
