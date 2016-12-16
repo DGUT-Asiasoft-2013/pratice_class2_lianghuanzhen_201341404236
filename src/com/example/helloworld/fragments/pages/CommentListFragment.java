@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import api.Server;
@@ -36,7 +37,7 @@ public class CommentListFragment extends Fragment {
 	View view;
 	ListView commentsListView;
 
-	List<Comment> data;
+	static List<Comment> data;
 	int page = 0;
 	View btnLoadMore;//加载更多
 	TextView textLoadMore;
@@ -76,13 +77,16 @@ public class CommentListFragment extends Fragment {
 		return view;
 	}
 
+	public static BaseAdapter getAdapter(){
+		return listAdapter;
+	}
 	//-------
 	//创建适配器 BaseAdapter listAdapter
 	//getView(重要),getItemID,getItem,getCount
 	//Suppresslint("InflateParams")
 	//在getView里面,取出视图 layoutInflater *= *.from(parent.getContext())
 	//view = in...in(and.r.lay.simple_List_items,null)
-	BaseAdapter listAdapter = new BaseAdapter() {
+	static BaseAdapter listAdapter = new BaseAdapter() {
 
 
 		@SuppressLint("InflateParams")
